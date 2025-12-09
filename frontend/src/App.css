@@ -1,0 +1,101 @@
+/* Layout */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Navbar */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #333;
+}
+
+.nav h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav a.link {
+  color: #646cff;
+  font-weight: 500;
+}
+.nav a.link:hover {
+  text-decoration: underline;
+}
+
+/* Components: Card */
+.card {
+  display: block;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: #646cff;
+  transform: translateY(-2px);
+}
+
+.card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+  color: #fff;
+  transition: color 0.2s;
+}
+
+.card:hover h2 {
+  color: #646cff;
+}
+
+.card small {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* Page: Article View */
+.article h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.article-meta {
+  display: block;
+  color: #888;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+}
+
+.article-body {
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: #e0e0e0;
+  white-space: pre-wrap;
+}
+
+/* Utilities */
+.status {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.status.error {
+  color: #ff6b6b;
+}

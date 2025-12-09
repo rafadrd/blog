@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: blog-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: 
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: blog-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      FRONTEND_URL: ${FRONTEND_URL}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      AI_MODEL_NAME: ${AI_MODEL_NAME}
+      CRON_SCHEDULE: ${CRON_SCHEDULE}
+      ARTICLE_TOPICS: ${ARTICLE_TOPICS}
+    ports:
+      - "${PORT}:3000"
+    networks:
+      - app-network
+
+  frontend:
+    build: ../frontend
+    container_name: blog-frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
+
+volumes:
+  pgdata:
+    name: pgdata
