@@ -6,3 +6,6 @@ build/
 .env.local
 *.log
 coverage/
+artifacts/
+build.env
+codebuild_build.sh
