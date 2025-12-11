@@ -6,8 +6,6 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "${DB_PORT}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -19,16 +17,14 @@ services:
       retries: 5
 
   backend:
-    build: 
-      context: ../backend
-      dockerfile: Dockerfile
+    build: ../backend
     container_name: blog-backend
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       PORT: ${PORT}
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: development
       DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
       FRONTEND_URL: ${FRONTEND_URL}
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
